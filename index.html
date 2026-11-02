@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سوبر ماركت لوجي ونانا وكارما</title>
+<style>
+:root {
+--primary-color: #2c7a7b;
+--secondary-color: #319795;
+--accent-color: #f6ad55;
+--bg-color: #f7fafc;
+--text-color: #1a202c;
+--card-bg: #ffffff;
+--dark-color: #2D3748;
+--light-bg: #EDF2F7;
+}
+body {
+font-family: 'Cairo', sans-serif;
+margin: 0;
+padding: 0;
+background-color: var(--bg-color);
+color: var(--text-color);
+direction: rtl;
+box-sizing: border-box;
+}
+header {
+background-color: var(--primary-color);
+color: white;
+padding: 1rem 0;
+position: sticky;
+top: 0;
+z-index: 100;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.container {
+width: 90%;
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+h1 { margin: 0; font-size: 1.5rem; }
+.search-bar { width: 40%; position: relative; }
+.search-bar input {
+width: 100%;
+padding: 0.6rem;
+border: none;
+border-radius: 5px;
+outline: none;
+}
+.search-bar button {
+position: absolute;
+left: 5px;
+top: 5px;
+background: var(--accent-color);
+border: none;
+padding: 0.3rem 0.6rem;
+border-radius: 3px;
+cursor: pointer;
+font-weight: bold;
+}
+.user-actions a { color: white; text-decoration: none; margin-right: 1.5rem; font-weight: bold;}
+.cart-icon { position: relative; cursor: pointer; }
+.cart-count {
+position: absolute;
+top: -10px;
+right: -10px;
+background: var(--accent-color);
+color: var(--text-color);
+border-radius: 50%;
+padding: 2px 6px;
+font-size: 0.8rem;
+font-weight: bold;
+}
+.hero {
+background-color: var(--secondary-color);
+color: white;
+padding: 2rem 0;
+text-align: center;
+margin-bottom: 2rem;
+}
+.hero h2 { margin-bottom: 1rem; }
+.hero .btn {
+display: inline-block;
+background: var(--accent-color);
+color: white;
+padding: 0.8rem 1.5rem;
+border-radius: 5px;
+text-decoration: none;
+font-weight: bold;
+margin-top: 1rem;
+}
+.categories {
+display: flex;
+justify-content: center;
+gap: 1.5rem;
+margin-bottom: 2rem;
+overflow-x: auto;
+padding-bottom: 1rem;
+}
+.cat-btn {
+background: var(--card-bg);
+border: 2px solid var(--primary-color);
+padding: 0.8rem 1.5rem;
+border-radius: 20px;
+cursor: pointer;
+font-weight: bold;
+transition: all 0.3s;
+white-space: nowrap;
+}
+.cat-btn:hover, .cat-btn.active {
+background: var(--primary-color);
+color: white;
+}
+.products {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+.product-card {
+background: var(--card-bg);
+border-radius: 10px;
+padding: 1rem;
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.product-card img {
+max-width: 100%;
+height: 150px;
+object-fit: contain;
+margin-bottom: 1rem;
+border-radius: 8px;
+}
+.product-card h3 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
+.product-card .price { color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+.add-to-cart {
+background: var(--secondary-color);
+color: white;
+border: none;
+padding: 0.6rem;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+transition: background 0.3s;
+}
+.add-to-cart:hover { background: #285e61; }
+footer {
+background: var(--dark-color);
+color: white;
+padding: 2rem 0;
+text-align: center;
+}
+.social-links a { color: white; margin: 0 0.5rem; font-size: 1.5rem; }
+/* Modal for payment */
+.modal {
+display: none;
+position: fixed;
+z-index: 200;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+background: white;
+margin: 5% auto;
+padding: 2rem;
+width: 90%;
+max-width: 500px;
+border-radius: 10px;
+color: var(--text-color);
+}
+.modal input[type="text"], .modal input[type="file"] {
+width: 100%;
+padding: 0.8rem;
+margin-bottom: 1rem;
+border: 1px solid var(--light-bg);
+border-radius: 5px;
+}
+.modal button {
+background: var(--primary-color);
+color: white;
+padding: 0.8rem;
+border: none;
+width: 100%;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<header>
+<div class="container">
+<h1>🥕 سوبر ماركت لوجي ونانا وكارما</h1>
+<div class="search-bar">
+<input type="text" id="search-input" placeholder="ابحث عن المنتجات أو الأقسام...">
+<button onclick="searchProducts()">بحث</button>
+</div>
+<div class="user-actions">
+<a href="#"><i class="fa-solid fa-user"></i> حسابي</a>
+<div class="cart-icon" onclick="toggleCartModal()">
+<i class="fa-solid fa-cart-shopping fa-lg"></i>
+<span class="cart-count" id="cart-count">0</span>
+</div>
+</div>
+</div>
+</header>
+<div class="hero">
+<h2>عروض الأسبوع!</h2>
+<p>خصم يصل إلى 40% على المنتجات الطازجة</p>
+<a href="#products" class="btn">تسوق الآن!</a>
+</div>
+<div class="categories" id="categories">
+<button class="cat-btn active" onclick="filterCategory('all')">الكل</button>
+<button class="cat-btn" onclick="filterCategory('خضروات')">خضروات</button>
+<button class="cat-btn" onclick="filterCategory('فواكه')">فواكه</button>
+<button class="cat-btn" onclick="filterCategory('مخبوزات')">مخبوزات</button>
+<button class="cat-btn" onclick="filterCategory('ألبان')">ألبان</button>
+<button class="cat-btn" onclick="filterCategory('مشروبات')">مشروبات</button>
+<button class="cat-btn" onclick="filterCategory('معلبات')">معلبات</button>
+</div>
+<div class="container" id="products">
+<div class="products" id="product-grid">
+<!-- Products will be dynamically added here -->
+</div>
+</div>
+<footer>
+<div class="container">
+<p>سوبر ماركت لوجي ونانا وكارما - طازة يومياً لباب بيتك</p>
+<div class="social-links">
+<a href="#"><i class="fa-brands fa-facebook"></i></a>
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+<a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
+</div>
+</footer>
+<!-- Cart / Checkout Modal -->
+<div id="cart-modal" class="modal">
+<div class="modal-content">
+<h2>✨ عربة التسوق</h2>
+<div id="cart-items"></div>
+<p id="total-price"></p>
+<p>رسوم التوصيل: 10 جنيه</p>
+<hr>
+<h3>💳 إتمام الدفع (اتصالات كاش / إنستا باي)</h3>
+<p>الرقم: 01151495701</p>
+<input type="text" id="delivery-address" placeholder="عنوان التوصيل">
+<input type="text" id="phone-number" placeholder="رقم الهاتف">
+<p>يرجى إرفاق صورة إيصال التحويل:</p>
+<input type="file" id="receipt-img" accept="image/*">
+<button onclick="checkout()">إرسال الأوردر للواتساب الآن</button>
+</div>
+</div>
+<script>
+const products = [
+{ id: 1, name: 'خيار بلدي طازة 1 كجم', price: 4.50, category: 'خضروات', img: '🥒' },
+{ id: 2, name: 'طماطم طازة 1 كجم', price: 6.00, category: 'خضروات', img: '🍅' },
+{ id: 3, name: 'تفاح أحمر فاخر 1 كجم', price: 7.00, category: 'فواكه', img: '🍎' },
+{ id: 4, name: 'موز طازة 1 كجم', price: 5.00, category: 'فواكه', img: '🍌' },
+{ id: 5, name: 'خبز عربي طازة (ربطة)', price: 1.25, category: 'مخبوزات', img: '🍞' },
+{ id: 6, name: 'كرواسون بالجبنة', price: 2.50, category: 'مخبوزات', img: '🥐' },
+{ id: 7, name: 'حليب كامل الدسم 1 لتر', price: 3.75, category: 'ألبان', img: '🥛' },
+{ id: 8, name: 'جبنة بيضاء 500 جم', price: 4.00, category: 'ألبان', img: '🧀' },
+{ id: 9, name: 'مياه معدنية 1.5 لتر', price: 1.00, category: 'مشروبات', img: '💧' },
+{ id: 10, name: 'عصير برتقال طبيعي', price: 2.25, category: 'مشروبات', img: '🍊' },
+{ id: 11, name: 'تونة قطعة واحدة 140 جم', price: 3.50, category: 'معلبات', img: '🥫' }
+];
+let cart = [];
+const deliveryFee = 10;
+function displayProducts(filteredList) {
+const grid = document.getElementById('product-grid');
+grid.innerHTML = '';
+filteredList.forEach(product => {
+const card = document.createElement('div');
+card.className = 'product-card';
+card.innerHTML = <div> <div style="font-size: 50px; text-align: center;">${product.img}</div> <h3>${product.name}</h3> <p class="price">${product.price.toFixed(2)} ر.س</p> </div> <button class="add-to-cart" onclick="addToCart(${product.id})">أضف للعربة</button>;
+grid.appendChild(card);
+});
+}
+function filterCategory(category) {
+document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+event.target.classList.add('active');
+if (category === 'all') {
+displayProducts(products);
+} else {
+displayProducts(products.filter(p => p.category === category));
+}
+}
+function searchProducts() {
+const query = document.getElementById('search-input').value.toLowerCase();
+const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+displayProducts(filtered);
+}
+function addToCart(productId) {
+const product = products.find(p => p.id === productId);
+cart.push(product);
+document.getElementById('cart-count').innerText = cart.length;
+alert('تمت إضافة المنتج للعربة!');
+}
+function toggleCartModal() {
+const modal = document.getElementById('cart-modal');
+modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+updateCartDisplay();
+}
+function updateCartDisplay() {
+const cartItems = document.getElementById('cart-items');
+cartItems.innerHTML = '';
+let total = 0;
+const counts = {};
+cart.forEach(item => {
+counts[item.id] = (counts[item.id] || 0) + 1;
+});
+Object.keys(counts).forEach(id => {
+const item = products.find(p => p.id == id);
+const quantity = counts[id];
+total += item.price * quantity;
+cartItems.innerHTML += <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"> <span>${item.name} (x${quantity})</span> <span>${(item.price * quantity).toFixed(2)} ر.س</span> </div>;
+});
+document.getElementById('total-price').innerHTML = <strong>الإجمالي: ${total.toFixed(2)} ر.س</strong>;
+window.cartTotal = total;
+}
+function checkout() {
+const address = document.getElementById('delivery-address').value;
+const phone = document.getElementById('phone-number').value;
+const receipt = document.getElementById('receipt-img').value;
+if(!address || !phone || !receipt) {
+alert('يرجى ملء بيانات التوصيل وإرفاق صورة الإيصال.');
+return;
+}
+let message = طلب جديد من سوبر ماركت لوجي ونانا وكارما:%0A;
+cart.forEach(item => {
+message += - ${item.name}%0A;
+});
+message += الإجمالي مع التوصيل: ${(window.cartTotal + deliveryFee).toFixed(2)} ر.س%0A;
+message += العنوان: ${address}%0A;
+message += رقم الهاتف: ${phone}%0A;
+message += تم إرفاق صورة الإيصال مع الطلب.;
+const whatsappUrl = https://wa.me/201151495701?text=${encodeURIComponent(message)};
+// In a real scenario with backend or canvas we would append the image. For prototype, we alert.
+alert('تم توجيهك للواتساب لإتمام عملية إرسال الأوردر والصورة!');
+window.open(whatsappUrl, '_blank');
+}
+// Close modal when clicking outside
+window.onclick = function(event) {
+const modal = document.getElementById('cart-modal');
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+displayProducts(products);
+</script>
+</body>
+</html>
+
